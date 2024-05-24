@@ -7,6 +7,7 @@ import {
   setPersistence,
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getDatabase } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,3 +31,7 @@ export const auth = getAuth(app);
 setPersistence(auth, browserLocalPersistence);
 
 export const firestore = getFirestore(app);
+export const database = getDatabase(
+  app,
+  "https://chat-app-js-761f0-default-rtdb.asia-southeast1.firebasedatabase.app/"
+);

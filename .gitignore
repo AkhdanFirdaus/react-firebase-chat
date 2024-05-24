@@ -23,4 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 
-./src/lib/firebase.lib.js
+**/**/firebase.lib.js
