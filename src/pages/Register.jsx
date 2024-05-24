@@ -1,21 +1,34 @@
 import React from "react";
-import { auth } from "../lib/firebase.lib";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import { auth, firestore } from "../lib/firebase.lib";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { setDoc, doc } from "firebase/firestore";
 
 const Register = () => {
   const navigate = useNavigate();
 
   const register = async (event) => {
     event.preventDefault();
+    const { value: fullName } = event.target.fullName;
     const { value: email } = event.target.email;
     const { value: password } = event.target.password;
     if (email && password) {
       try {
-        createUserWithEmailAndPassword(auth, email, password);
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        const { uid } = userCredential.user;
+        const docRef = doc(firestore, "users", uid);
+        await setDoc(docRef, {
+          fullName,
+        });
       } catch (error) {
         window.alert(error.message);
       }
@@ -38,8 +51,8 @@ const Register = () => {
         </div>
         <label>
           <input
-            type="fullname"
-            name="fullname"
+            type="text"
+            name="fullName"
             className="input input-bordered w-full"
             placeholder="Full Name"
           />
@@ -64,6 +77,9 @@ const Register = () => {
           <button type="submit" className="btn btn-primary w-full">
             Register
           </button>
+        </div>
+        <div className="text-center">
+          <Link to="/login">Already have an acoount? Login Here</Link>
         </div>
       </form>
     </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../lib/firebase.lib";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -53,6 +54,9 @@ const Login = () => {
           <button type="submit" className="btn btn-primary w-full">
             Login
           </button>
+        </div>
+        <div className="text-center">
+          <Link to="/register">Doesn{"'"}t have an acoount? Register Here</Link>
         </div>
       </form>
     </div>
