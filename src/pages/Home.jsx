@@ -1,5 +1,5 @@
 import React from "react";
-import { auth } from "../firebase.lib";
+import { auth } from "../lib/firebase.lib";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { FiPower } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";

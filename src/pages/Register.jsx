@@ -1,18 +1,21 @@
 import React from "react";
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase.lib";
+import { auth } from "../lib/firebase.lib";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate();
 
-  const login = async (event) => {
+  const register = async (event) => {
     event.preventDefault();
     const { value: email } = event.target.email;
     const { value: password } = event.target.password;
     if (email && password) {
       try {
-        await signInWithEmailAndPassword(auth, email, password);
+        createUserWithEmailAndPassword(auth, email, password);
       } catch (error) {
         window.alert(error.message);
       }
@@ -29,10 +32,18 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <form onSubmit={login} className="max-w-md w-full flex flex-col gap-5">
+      <form onSubmit={register} className="max-w-md w-full flex flex-col gap-5">
         <div className="text-center">
           <span className="text-wxl font-bold">Chat App</span>
         </div>
+        <label>
+          <input
+            type="fullname"
+            name="fullname"
+            className="input input-bordered w-full"
+            placeholder="Full Name"
+          />
+        </label>
         <label>
           <input
             type="email"
@@ -51,7 +62,7 @@ const Login = () => {
         </label>
         <div>
           <button type="submit" className="btn btn-primary w-full">
-            Login
+            Register
           </button>
         </div>
       </form>
@@ -59,4 +70,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
